@@ -1,31 +1,41 @@
-# google-finance
+# Google Finance
 
-## Project setup
+Re-implementing Google finance page with Vuejs and D3js. Try it here: [https://vue-google-finance.surge.sh](https://vue-google-finance.surge.sh).
+
+![Google Finance](./public/images/google-finance.png)
+
+## Want to try locally?
+
+### Install the dependencies
 ```
-yarn install
+npm install
 ```
 
 ### Compiles and hot-reloads for development
 ```
-yarn run serve
+npm run serve
 ```
 
 ### Compiles and minifies for production
 ```
-yarn run build
+npm run build
 ```
 
 ### Run your tests
 ```
-yarn run test
+npm run test
 ```
 
 ### Lints and fixes files
 ```
-yarn run lint
+npm run lint
 ```
 
 ### Run your unit tests
 ```
-yarn run test:unit
+npm run test:unit
 ```
+
+## License
+
+MIT License
