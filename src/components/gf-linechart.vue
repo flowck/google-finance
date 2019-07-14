@@ -4,7 +4,7 @@
     :height="height + margin.top + margin.bottom"
     class="gf-linechart"
   >
-    <g :transform="`translate(${margin.left}, ${10})`">
+    <g :transform="`translate(${margin.left + 3}, ${10})`">
       <!-- Axes -->
       <g class="x-axis" :transform="`translate(0, ${height})`"></g>
       <g class="y-axis"></g>
@@ -85,7 +85,7 @@ export default {
         .attr("stroke-opacity", "0.1");
 
       d3.select(".y-axis")
-        .call(d3.axisLeft(this.scales.y).ticks(6))
+        .call(d3.axisLeft(this.scales.y).ticks(5))
         .selectAll(".tick line")
         .attr("stroke", "#000")
         .attr("stroke-opacity", "0.1");
