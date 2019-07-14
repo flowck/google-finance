@@ -4,7 +4,7 @@
       <li>
         All
       </li>
-      <li>Finance</li>
+      <li class="active">Finance</li>
       <li>News</li>
       <li>Images</li>
       <li>Videos</li>
@@ -34,6 +34,11 @@ export default {
     li {
       padding: 0 10px;
       font-size: 12.5px;
+
+      &.active {
+        color: #1a73e8;
+        border-bottom: 3px solid #1a73e8;
+      }
     }
   }
 }
