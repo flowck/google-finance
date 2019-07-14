@@ -1,21 +1,27 @@
 <template>
-  <div id="app">
-    <gf-card is-rounded>
-      <!-- Header -->
-      <div class="gf-card__header">
-        <h1 class="gf-card__header__value">103,905.99</h1>
-        <span class="gf-card__header__date">{{ new Date() }}</span>
-      </div>
+  <div id="gf-app">
+    <!-- Main Header -->
+    <gf-header></gf-header>
 
-      <!-- Tab nav -->
+    <section class="gf-main">
+      <gf-card is-rounded>
+        <!-- Card Header -->
+        <div class="gf-card__header">
+          <h1 class="gf-card__header__value">103,905.99</h1>
+          <span class="gf-card__header__date">{{ new Date() }}</span>
+        </div>
 
-      <!-- Line chart -->
-      <gf-linechart :dataset="data"></gf-linechart>
-    </gf-card>
+        <!-- Tab nav -->
+
+        <!-- Line chart -->
+        <gf-linechart :dataset="data"></gf-linechart>
+      </gf-card>
+    </section>
   </div>
 </template>
 
 <script>
+import GFHeader from "@/components/gf-header";
 import data from "@/assets/datasets/data";
 export default {
   name: "GoogleFinance",
@@ -24,7 +30,9 @@ export default {
       data: []
     };
   },
-  components: {},
+  components: {
+    "gf-header": GFHeader
+  },
   methods: {
     /**
      * transformData: It will transform the dataset
@@ -49,4 +57,10 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.gf-main {
+  width: 632px;
+  margin-left: 146.5px;
+  // border: 1px solid red;
+}
+</style>
