@@ -7,7 +7,7 @@
       <gf-card is-rounded>
         <!-- Card Header -->
         <div class="gf-card__header">
-          <h1 class="gf-card__header__value">{{ maxValue }}</h1>
+          <h1 class="gf-card__header__value">{{ maxValue }}$</h1>
           <span class="gf-card__header__date">
             {{ new Date() | formatDate }}
           </span>
