@@ -79,7 +79,7 @@ export default {
     },
     renderAxes() {
       d3.select(".x-axis")
-        .call(d3.axisBottom(this.scales.x))
+        .call(d3.axisBottom(this.scales.x).ticks(7))
         .selectAll(".tick line")
         .attr("stroke", "#000")
         .attr("stroke-opacity", "0.1");
@@ -153,6 +153,15 @@ export default {
       this.renderAxes();
       this.renderLine();
       // this.renderArea();
+    }
+  },
+  watch: {
+    /**
+     * Re-render the chart on data change
+     */
+    dataset(data) {
+      this.data = data;
+      this.init();
     }
   },
   mounted() {
