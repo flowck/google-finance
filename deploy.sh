@@ -7,4 +7,4 @@ npm run build
 cd dist
 
 # Deploy to surge 
-surge
+surge --domain vue-google-finance.surge.sh
