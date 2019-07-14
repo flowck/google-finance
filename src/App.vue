@@ -16,7 +16,12 @@
         <!-- Tab nav -->
 
         <!-- Line chart -->
-        <gf-linechart :dataset="data"></gf-linechart>
+        <div class="gf-card__chart">
+          <gf-linechart
+            :options="{ width: 580, height: 180 }"
+            :dataset="data"
+          ></gf-linechart>
+        </div>
       </gf-card>
     </section>
   </div>
@@ -55,7 +60,7 @@ export default {
     }
   },
   created() {
-    this.data = this.transformData(data);
+    this.data = this.transformData(data, 1000);
   },
   filters: {
     formatDate(date) {
@@ -79,5 +84,9 @@ export default {
 
 .gf-card__header__date {
   font-size: 12px;
+}
+
+.gf-card__chart {
+  margin: 20px 0;
 }
 </style>
