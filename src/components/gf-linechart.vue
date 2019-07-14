@@ -49,6 +49,9 @@ export default {
     dataset: {
       type: Array,
       required: true
+    },
+    options: {
+      type: Object
     }
   },
   methods: {
@@ -58,8 +61,10 @@ export default {
      */
     setSize() {
       // Width and Height
-      this.width = 400 - this.margin.left - this.margin.right;
-      this.height = 200 - this.margin.top - this.margin.top;
+      this.width =
+        this.options.width || 400 - this.margin.left - this.margin.right;
+      this.height =
+        this.options.height || 250 - this.margin.top - this.margin.top;
     },
     setScales() {
       this.scales.x = d3
