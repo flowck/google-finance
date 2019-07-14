@@ -8,7 +8,9 @@
         <!-- Card Header -->
         <div class="gf-card__header">
           <h1 class="gf-card__header__value">103,905.99</h1>
-          <span class="gf-card__header__date">{{ new Date() }}</span>
+          <span class="gf-card__header__date">{{
+            new Date() | formatDate
+          }}</span>
         </div>
 
         <!-- Tab nav -->
@@ -21,6 +23,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import GFHeader from "@/components/gf-header";
 import data from "@/assets/datasets/data";
 export default {
@@ -53,6 +56,11 @@ export default {
   },
   created() {
     this.data = this.transformData(data);
+  },
+  filters: {
+    formatDate(date) {
+      return date ? moment(date).format("LL") : "";
+    }
   }
 };
 </script>
@@ -62,5 +70,14 @@ export default {
   width: 632px;
   margin-left: 146.5px;
   // border: 1px solid red;
+}
+
+.gf-card__header__value {
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.gf-card__header__date {
+  font-size: 12px;
 }
 </style>
