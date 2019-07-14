@@ -1,8 +1,43 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
+/* 
+ * Variables
+ */
+$text-color: #666;
+$link-color: $text-color;
+$link-active-color: #1A73E8;
+$border-color: #DDD;
+
 body {
+  font-size: 14px;
+  color: $text-color;
   font-family: 'Roboto', sans-serif;
+}
+
+/* 
+ * Flex
+ */
+.flex {
+  display: flex;
+
+  &.flex--is-centered {
+    justify-content: center;
+    align-items: center;
+  }
+
+  &.flex--is-centered-x {
+    justify-content: center;
+  }
+
+  &.flex--is-centered-y {
+    align-items: center;
+  }
+
+  &.flex--has-space-between {
+    justify-content: space-between;
+  }
 }
