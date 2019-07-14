@@ -1,5 +1,5 @@
 <template>
-  <article :class="cssClasses">
+  <article :class="cssClasses" :style="`border-radius: ${radius}px;`">
     <slot></slot>
   </article>
 </template>
@@ -12,16 +12,21 @@ export default {
       cssClasses: {
         "gf-card": true,
         "is-rounded": false
-      }
+      },
+      styles: {}
     };
   },
   props: {
     "is-rounded": {
       type: Boolean,
       default: false
+    },
+    radius: {
+      type: String
     }
   },
   mounted() {
+    // Set classes
     this.cssClasses["is-rounded"] = this.$props.isRounded;
   }
 };
