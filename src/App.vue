@@ -17,11 +17,11 @@
         <!-- Dataset options -->
         <div class="gf-card__option">
           <ul class="flex flex--has-space-between">
-            <li @click="filter = '7d'">7 day</li>
+            <li @click="filter = '7d'">7 days</li>
             <li @click="filter = '15d'">15 days</li>
             <li @click="filter = '1m'">1 month</li>
             <li @click="filter = '6m'">6 months</li>
-            <li>YTD</li>
+            <!-- <li>YTD</li> -->
             <li @click="filter = '1y'">1 year</li>
             <li @click="filter = '5y'">5 years</li>
             <li @click="filter = null">Max</li>
@@ -42,15 +42,19 @@
           <h1>News</h1>
         </div>
 
-        <gf-news
-          class="gf-main__news__post"
-          v-for="post in news"
-          :key="post.id"
-          :title="post.title"
-          :date="new Date()"
-          thumbnail="https://www.wealthmanagement.com/sites/wealthmanagement.com/files/styles/article_featured_standard/public/nyse-spencer-platt-getty-465229962.jpg?itok=2dZaJ27W"
-        >
-        </gf-news>
+        <div v-if="news.length > 0">
+          <gf-news
+            class="gf-main__news__post"
+            radius="8"
+            v-for="post in news"
+            :key="post.id"
+            :title="post.title"
+            :date="post.publishedAt"
+            :thumbnail="post.urlToImage"
+            :source="post.source.name"
+          >
+          </gf-news>
+        </div>
       </div>
     </section>
   </div>
@@ -94,8 +98,13 @@ export default {
     },
     async getNews() {
       try {
-        const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+        // Exposing API KEY
+        const urlParams = `?country=us&apiKey=${process.env.VUE_APP_K}`;
+        const url = `https://newsapi.org/v2/top-headlines${urlParams}`;
+        const res = await fetch(url);
         this.news = await res.json();
+        this.news = this.news.articles.slice(0, 3);
+        console.log(this.news);
       } catch (err) {
         console.log(err);
       }
@@ -171,16 +180,17 @@ export default {
 <style lang="scss">
 .gf-main {
   width: 632px;
-  margin-left: 146.5px;
+  margin: 20px 0 0 146.5px;
 }
 
 .gf-card__header__value {
+  color: #111;
   font-size: 25px;
-  font-weight: 400;
 }
 
 .gf-card__header__date {
   font-size: 12px;
+  font-family: "Roboto-Light";
 }
 
 .gf-card__chart {
@@ -191,11 +201,14 @@ export default {
   margin-top: 30px;
 
   .gf-main__news__title {
-    margin-bottom: 15px;
+    color: #111;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 15px 15px;
   }
 
   .gf-main__news__post {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
 }
 
@@ -212,7 +225,7 @@ export default {
       font-size: 12px;
       cursor: pointer;
       padding: 0 0 12px 0;
-      //border-bottom: 2px solid #333;
+      font-family: "Roboto-Light";
     }
   }
 }
