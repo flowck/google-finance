@@ -4,6 +4,7 @@
     <gf-header></gf-header>
 
     <section class="gf-main">
+      <!-- Chart -->
       <gf-card is-rounded>
         <!-- Card Header -->
         <div class="gf-card__header">
@@ -35,6 +36,22 @@
           ></gf-linechart>
         </div>
       </gf-card>
+
+      <div class="gf-main__news">
+        <div class="gf-main__news__title">
+          <h1>News</h1>
+        </div>
+
+        <gf-news
+          class="gf-main__news__post"
+          v-for="post in news"
+          :key="post.id"
+          :title="post.title"
+          :date="new Date()"
+          thumbnail="https://www.wealthmanagement.com/sites/wealthmanagement.com/files/styles/article_featured_standard/public/nyse-spencer-platt-getty-465229962.jpg?itok=2dZaJ27W"
+        >
+        </gf-news>
+      </div>
     </section>
   </div>
 </template>
@@ -50,6 +67,7 @@ export default {
     return {
       data: [],
       maxValue: 0,
+      news: [],
       filter: null
     };
   },
@@ -73,6 +91,14 @@ export default {
         });
       }
       return result;
+    },
+    async getNews() {
+      try {
+        const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+        this.news = await res.json();
+      } catch (err) {
+        console.log(err);
+      }
     }
   },
   computed: {
@@ -136,6 +162,8 @@ export default {
   },
   created() {
     this.maxValue = max(data, d => d.high).toFixed(2);
+    // Get news
+    this.getNews();
   }
 };
 </script>
@@ -144,7 +172,6 @@ export default {
 .gf-main {
   width: 632px;
   margin-left: 146.5px;
-  // border: 1px solid red;
 }
 
 .gf-card__header__value {
@@ -158,6 +185,18 @@ export default {
 
 .gf-card__chart {
   margin: 20px 0;
+}
+
+.gf-main__news {
+  margin-top: 30px;
+
+  .gf-main__news__title {
+    margin-bottom: 15px;
+  }
+
+  .gf-main__news__post {
+    margin-bottom: 10px;
+  }
 }
 
 .gf-card__option {
