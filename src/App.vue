@@ -16,8 +16,8 @@
         <!-- Dataset options -->
         <div class="gf-card__option">
           <ul class="flex flex--has-space-between">
-            <li @click="filter = '1d'">1 day</li>
-            <li @click="filter = '5d'">5 days</li>
+            <li @click="filter = '7d'">7 day</li>
+            <li @click="filter = '15d'">15 days</li>
             <li @click="filter = '1m'">1 month</li>
             <li @click="filter = '6m'">6 months</li>
             <li>YTD</li>
@@ -102,6 +102,21 @@ export default {
           const filtered = data.filter(item => {
             return (
               new Date(item.date) >= new Date(monthsAgo.format()) &&
+              new Date(item.date) <= new Date(maxDate)
+            );
+          });
+          return this.transformData(filtered);
+        }
+
+        if (this.filter[1] === "d" || this.filter[2] === "d") {
+          const numberOfDays = this.filter[2]
+            ? parseInt(`${this.filter[0]}${this.filter[1]}`)
+            : parseInt(this.filter[0]);
+          const maxDate = max(data, d => d.date);
+          const daysAgo = moment(maxDate).subtract(numberOfDays, "days");
+          const filtered = data.filter(item => {
+            return (
+              new Date(item.date) >= new Date(daysAgo.format()) &&
               new Date(item.date) <= new Date(maxDate)
             );
           });
