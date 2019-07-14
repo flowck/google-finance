@@ -20,6 +20,19 @@
         <g class="gf-x-grid grid" :transform="`translate(0, ${height})`"></g>
         <g class="gf-y-grid grid"></g>
       </g>
+
+      <!-- Tooltip -->
+      <!-- <rect :width="width" :height="height" class="overlay"></rect>
+      <g class="focus">
+        <rect
+          width="100"
+          height="30"
+          class="tooltip"
+          y="0"
+          rx="4"
+          ry="4"
+        ></rect>
+      </g> -->
     </g>
   </svg>
 </template>
@@ -42,7 +55,8 @@ export default {
         x: null,
         y: null
       },
-      data: []
+      data: [],
+      bisectDate: null
     };
   },
   props: {
@@ -146,12 +160,33 @@ export default {
       d3.select(".gf-y-grid path").attr("stroke-opacity", "0");
       d3.select(".gf-x-grid path").attr("stroke-opacity", "0");
     },
+    initToolTip() {
+      const self = this;
+      this.bisectDate = d3.bisector(d => d.x).left;
+      const focus = d3.select(".focus");
+      d3.select(".overlay")
+        .on("mouseover", () => focus.style("display", null))
+        .on("mouseout", () => focus.style("display", "null"))
+        .on("mousemove", function() {
+          const that = this;
+          self.tooltipoOnMouseMove(that);
+        });
+    },
+    // tooltipoOnMouseMove(that) {
+    //   // console.log("TOOLTIP ON MOVE: ", that);
+    //   const { x } = this.scales;
+    //   const x0 = x.invert(d3.mouse(that)[0]);
+    //   const i = this.bisectDate(this.data, x0, 1);
+    //   const d0 = this.data[i - 1];
+    //   const d1 = this.data[i];
+    // },
     init() {
       this.setSize();
       this.setScales();
       this.renderYGrid();
       this.renderAxes();
       this.renderLine();
+      // this.initToolTip();
       // this.renderArea();
     }
   },
@@ -194,5 +229,15 @@ export default {
 
 .gf-area {
   fill: lightsteelblue;
+}
+
+.tooltip {
+  fill: white;
+  stroke: #444;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
 }
 </style>
